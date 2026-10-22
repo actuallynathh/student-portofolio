@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daftar - SPOT (Student Portfolio Center)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-slate-800 antialiased font-sans min-h-screen flex items-center justify-center p-4 py-10">
+
+  <div class="w-full max-w-md">
+    <!-- Tombol Kembali ke Landing Page -->
+    <div class="mb-4">
+      <a href="index.html" class="inline-flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white transition-colors">
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        Kembali ke Beranda
+      </a>
+    </div>
+
+    <!-- Card Register -->
+    <div class="bg-white rounded-2xl shadow-2xl ring-1 ring-slate-900/10 p-8 space-y-6">
+      
+      <!-- Brand Header -->
+      <div class="flex items-center gap-3">
+        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 shadow-lg shadow-blue-500/30 text-white font-bold">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            <path d="M2 17l10 5 10-5"></path>
+            <path d="M2 12l10 5 10-5"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold text-slate-900 tracking-tight">SPOT</h1>
+          <p class="text-xs text-slate-500">Student Portfolio Center</p>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-slate-800">Buat Akun Baru</h2>
+        <p class="text-sm text-slate-500 mt-0.5">Daftarkan diri Anda untuk mengelola portofolio prestasi.</p>
+      </div>
+
+      <!-- Form Register -->
+      <form id="registerForm" class="space-y-4">
+        <div>
+          <label class="mb-1.5 block text-sm font-semibold text-slate-700">Nama Lengkap</label>
+          <input type="text" name="nama" required placeholder="Nama lengkap beserta gelar/panggilan" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all">
+        </div>
+
+        <div>
+          <label class="mb-1.5 block text-sm font-semibold text-slate-700">NIM / NIP</label>
+          <input type="text" name="id" required placeholder="Contoh: 2021001 atau 198501" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all">
+        </div>
+
+        <div>
+          <label class="mb-1.5 block text-sm font-semibold text-slate-700">Email Instansi</label>
+          <input type="email" name="email" required placeholder="nama@kampus.ac.id" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all">
+        </div>
+
+        <div>
+          <label class="mb-1.5 block text-sm font-semibold text-slate-700">Peran Akun</label>
+          <select name="role" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all cursor-pointer">
+            <option value="mahasiswa">Mahasiswa</option>
+            <option value="dosen">Dosen Pembimbing</option>
+            <option value="staff">Staff Kampus</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="mb-1.5 block text-sm font-semibold text-slate-700">Kata Sandi</label>
+          <input type="password" name="password" required placeholder="••••••••" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all">
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" class="w-full rounded-xl bg-blue-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/30 transition-all hover:bg-blue-700 hover:shadow-blue-500/40 active:scale-[0.98]">
+            Daftar Akun
+          </button>
+        </div>
+      </form>
+
+      <div class="text-center pt-2 border-t border-slate-100">
+        <p class="text-sm text-slate-500">Sudah punya akun? <a href="login.html" class="font-semibold text-blue-600 hover:text-blue-700 hover:underline">Masuk di sini</a></p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

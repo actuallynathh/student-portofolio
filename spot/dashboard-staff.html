@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Staff Kampus - SPOT</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN untuk Pie Chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+</head>
+<body data-role="staff" class="bg-slate-50 text-slate-800 antialiased font-sans">
+
+  <!-- Sidebar Staff -->
+  <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 flex w-64 -translate-x-full flex-col bg-slate-900 border-r border-slate-800 transition-transform md:translate-x-0 shadow-2xl md:shadow-none">
+    <div class="flex h-16 items-center px-6 border-b border-slate-800">
+      <div class="flex items-center gap-2 text-xl font-bold text-white tracking-tight">
+        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-teal-600 shadow-lg shadow-indigo-500/20">
+          <svg class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            <path d="M2 17l10 5 10-5"></path>
+            <path d="M2 12l10 5 10-5"></path>
+          </svg>
+        </div>
+        SPOT <span class="ml-2 rounded bg-slate-800 px-2 py-0.5 text-[10px] font-medium text-slate-400">STAFF</span>
+      </div>
+    </div>
+    
+    <nav class="flex-1 space-y-1.5 p-4 overflow-y-auto">
+      <p class="px-3 pb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Menu Staff</p>
+      
+      <button data-tab="home" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+        Dashboard Utama
+      </button>
+      
+      <button data-tab="add" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+        Registrasi User
+      </button>
+      
+      <button data-tab="users" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        Direktori User
+      </button>
+      
+      <button data-tab="ach" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+        Arsip Agregat SKPI
+      </button>
+
+      <p class="px-3 pb-2 pt-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Pengaturan</p>
+      
+      <button data-tab="profile" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+        Profil Saya
+      </button>
+    </nav>
+    
+    <div class="p-4 border-t border-slate-800">
+      <button data-logout class="flex w-full items-center justify-center gap-2 rounded-xl bg-red-500/10 px-3 py-2.5 text-sm font-medium text-red-500 transition-colors hover:bg-red-500 hover:text-white">
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+        Keluar
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="md:ml-64 flex flex-col min-h-screen">
+    
+    <!-- Top Header -->
+    <header class="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/80 px-5 backdrop-blur-md">
+      <div class="flex items-center gap-3">
+        <button id="menuBtn" class="rounded-lg p-2 text-slate-500 hover:bg-slate-100 md:hidden">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <h1 id="title" class="text-xl font-bold text-slate-800 tracking-tight">Dashboard Utama</h1>
+      </div>
+      
+      <div class="flex items-center gap-4">
+        <div class="hidden md:block text-right">
+          <p class="text-sm font-medium text-slate-900" data-me></p>
+          <p class="text-xs text-slate-500">Administrator Kampus</p>
+        </div>
+        <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-indigo-100 to-teal-100 flex items-center justify-center border border-slate-200 text-indigo-600 font-bold shadow-inner overflow-hidden">
+          <img id="headerAvatar" src="https://ui-avatars.com/api/?name=Staff&background=ccfbf1&color=0f766e" class="h-full w-full object-cover">
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1 p-5 md:p-8 w-full max-w-7xl mx-auto">
+      
+      <!-- Panel 1: Home (With Analytics Pie Chart) -->
+      <section data-panel="home" class="hidden space-y-8 animate-[fadeIn_0.3s_ease-in-out]">
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-600 to-teal-700 p-8 text-white shadow-lg">
+          <div class="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-2xl"></div>
+          <h2 class="text-2xl font-bold mb-2">Pusat Data Agregat Kampus</h2>
+          <p class="text-indigo-100 max-w-xl">Akses seluruh rekam jejak portofolio mahasiswa. Catatan privat antara mahasiswa dan dosen tidak ditampilkan di sini untuk menjaga kerahasiaan bimbingan.</p>
+        </div>
+
+        <!-- Cards Statistik -->
+        <div class="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
+          <div class="relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 hover:-translate-y-1 transition-all"><p class="text-sm font-medium text-slate-500">Total Arsip Prestasi</p><p data-stat="total" class="mt-2 text-4xl font-extrabold text-slate-800">0</p></div>
+          <div class="relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 hover:-translate-y-1 transition-all"><p class="text-sm font-medium text-slate-500">Menunggu Review</p><p data-stat="Menunggu" class="mt-2 text-4xl font-extrabold text-amber-500">0</p></div>
+          <div class="relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 hover:-translate-y-1 transition-all"><p class="text-sm font-medium text-slate-500">Tervalidasi (Disetujui)</p><p data-stat="Disetujui" class="mt-2 text-4xl font-extrabold text-emerald-600">0</p></div>
+          <div class="relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 hover:-translate-y-1 transition-all"><p class="text-sm font-medium text-slate-500">Ditolak</p><p data-stat="Ditolak" class="mt-2 text-4xl font-extrabold text-rose-600">0</p></div>
+        </div>
+
+        <!-- NEW: Pie Chart Analytics Section -->
+        <div class="rounded-2xl bg-white p-6 md:p-8 shadow-sm ring-1 ring-slate-200">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-slate-100 pb-4">
+            <div>
+              <h3 class="text-lg font-bold text-slate-800">Statistik Keaktifan Mahasiswa Kampus</h3>
+              <p class="text-sm text-slate-500 mt-0.5">Analisis proporsi mahasiswa berdasarkan progres pengajuan prestasi.</p>
+            </div>
+            
+            <!-- Filter Batch (Angkatan) -->
+            <div class="flex items-center gap-2">
+              <label for="filterBatch" class="text-sm font-medium text-slate-600 whitespace-nowrap">Angkatan:</label>
+              <select id="filterBatch" class="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-4 focus:ring-teal-500/10 transition-all cursor-pointer">
+                <option value="all">Semua Angkatan (All)</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Chart Container -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+            <div class="md:col-span-1 flex justify-center">
+              <div class="w-64 h-64 relative">
+                <canvas id="staffAchievementChart"></canvas>
+              </div>
+            </div>
+            
+            <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="rounded-xl bg-slate-50 p-4 border border-slate-200/80 flex flex-col justify-between">
+                <div>
+                  <span class="inline-block w-3 h-3 rounded-full bg-slate-400 mr-1.5"></span>
+                  <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Belum Ada Prestasi</span>
+                </div>
+                <p id="statBelum" class="text-3xl font-extrabold text-slate-700 mt-4">0</p>
+                <span class="text-xs text-slate-400 mt-1">Mahasiswa tanpa rekam jejak</span>
+              </div>
+              
+              <div class="rounded-xl bg-amber-50/60 p-4 border border-amber-200/80 flex flex-col justify-between">
+                <div>
+                  <span class="inline-block w-3 h-3 rounded-full bg-amber-500 mr-1.5"></span>
+                  <span class="text-xs font-semibold uppercase tracking-wider text-amber-700">Sedang Verifikasi</span>
+                </div>
+                <p id="statVerif" class="text-3xl font-extrabold text-amber-600 mt-4">0</p>
+                <span class="text-xs text-amber-500/80 mt-1">Menunggu review dosen</span>
+              </div>
+              
+              <div class="rounded-xl bg-emerald-50/60 p-4 border border-emerald-200/80 flex flex-col justify-between">
+                <div>
+                  <span class="inline-block w-3 h-3 rounded-full bg-emerald-500 mr-1.5"></span>
+                  <span class="text-xs font-semibold uppercase tracking-wider text-emerald-700">Sudah Ada Prestasi</span>
+                </div>
+                <p id="statSudah" class="text-3xl font-extrabold text-emerald-600 mt-4">0</p>
+                <span class="text-xs text-emerald-500/80 mt-1">Prestasi tervalidasi</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel 2: Registrasi User -->
+      <section data-panel="add" class="hidden animate-[fadeIn_0.3s_ease-in-out]">
+        <div class="max-w-2xl rounded-2xl bg-white p-6 md:p-8 shadow-sm ring-1 ring-slate-200">
+          <div class="mb-6">
+            <h2 class="text-xl font-bold text-slate-800">Registrasi Pengguna Baru</h2>
+            <p class="text-sm text-slate-500 mt-1">Tambahkan akun Dosen atau Mahasiswa ke dalam sistem.</p>
+          </div>
+          <form id="userForm" class="space-y-5">
+            <div>
+              <label class="mb-1.5 block text-sm font-semibold text-slate-700">Nama lengkap</label>
+              <input name="nama" type="text" required class="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm focus:border-teal-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-500/10">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label class="mb-1.5 block text-sm font-semibold text-slate-700">NIM / NIP</label>
+                <input name="id" type="text" required class="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm focus:border-teal-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-500/10">
+              </div>
+              <div>
+                <label class="mb-1.5 block text-sm font-semibold text-slate-700">Peran Akun</label>
+                <select name="role" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm focus:border-teal-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-500/10">
+                  <option value="mahasiswa">Mahasiswa</option>
+                  <option value="dosen">Dosen</option>
+                  <option value="staff">Staff Kampus</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="mb-1.5 block text-sm font-semibold text-slate-700">Email Instansi</label>
+              <input name="email" type="email" required class="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm focus:border-teal-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-500/10">
+            </div>
+            <div class="pt-2">
+              <button class="w-full rounded-xl bg-teal-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-teal-500/30 transition-all hover:bg-teal-700 hover:shadow-teal-500/40 active:scale-[0.98]">
+                Simpan Pengguna
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Panel 3: Direktori User (With Role Filter) -->
+      <section data-panel="users" class="hidden animate-[fadeIn_0.3s_ease-in-out]">
+        <div class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
+          <div class="border-b border-slate-200 bg-slate-50/50 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-lg font-bold text-slate-800">Direktori Pengguna</h2>
+              <p class="text-sm text-slate-500 mt-1">Kelola dan filter data seluruh akun civitas akademika.</p>
+            </div>
+            
+            <!-- Filter Role -->
+            <div class="flex items-center gap-2">
+              <label for="filterRole" class="text-sm font-medium text-slate-600 whitespace-nowrap">Filter Role:</label>
+              <select id="filterRole" class="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-4 focus:ring-teal-500/10 transition-all cursor-pointer">
+                <option value="all">Semua Role (All)</option>
+                <option value="mahasiswa">Mahasiswa</option>
+                <option value="dosen">Dosen</option>
+                <option value="staff">Staff Kampus</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm whitespace-nowrap">
+              <thead class="bg-slate-50 text-xs uppercase text-slate-500 border-b border-slate-200">
+                <tr>
+                  <th class="px-6 py-4 font-semibold tracking-wider">Nama</th>
+                  <th class="px-6 py-4 font-semibold tracking-wider">NIM / NIP</th>
+                  <th class="px-6 py-4 font-semibold tracking-wider">Peran</th>
+                  <th class="px-6 py-4 font-semibold tracking-wider">Email</th>
+                </tr>
+              </thead>
+              <tbody id="customUsersRender" class="divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel 4: Arsip Agregat SKPI -->
+      <section data-panel="ach" class="hidden animate-[fadeIn_0.3s_ease-in-out]">
+        <div class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
+          <div class="border-b border-slate-200 bg-slate-50/50 px-6 py-4 flex items-center justify-between">
+            <h2 class="text-lg font-bold text-slate-800">Arsip Agregat SKPI (Tanpa Catatan)</h2>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm whitespace-nowrap">
+              <thead class="bg-slate-50 text-xs uppercase text-slate-500 border-b border-slate-200">
+                <tr>
+                  <th class="px-6 py-4 font-semibold tracking-wider">Mahasiswa</th>
+                  <th class="px-6 py-4 font-semibold tracking-wider">Judul & Tingkat</th>
+                  <th class="px-6 py-4 font-semibold tracking-wider">Poin SKPI Final</th>
+                  <th class="px-6 py-4 font-semibold tracking-wider">Tanggal</th>
+                  <th class="px-6 py-4 font-semibold tracking-wider">Status</th>
+                </tr>
+              </thead>
+              <tbody data-render="ach" class="divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel 5: Profil Staff -->
+      <section data-panel="profile" class="hidden animate-[fadeIn_0.3s_ease-in-out]">
+        <div class="max-w-3xl mx-auto space-y-6">
+          <div class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
+            <div class="h-32 bg-gradient-to-r from-teal-600 via-indigo-600 to-blue-600"></div>
+            <div class="px-6 pb-8 relative">
+              <div class="-mt-12 mb-4 flex items-end justify-between">
+                <div class="h-24 w-24 rounded-full border-4 border-white bg-slate-200 flex items-center justify-center shadow-md overflow-hidden relative">
+                  <img src="https://ui-avatars.com/api/?name=Staff&background=ccfbf1&color=0f766e" id="profileAvatar" class="h-full w-full object-cover">
+                </div>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-slate-900" data-me>Nama Staff</h2>
+                <p id="profileRole" class="text-sm font-medium text-teal-600 mt-1">Administrator Kampus</p>
+                <p class="mt-2 text-sm text-slate-500 flex items-center gap-1.5">
+                  <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                  Universitas Siber Indonesia
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-2xl bg-white p-6 md:p-8 shadow-sm ring-1 ring-slate-200">
+            <h3 class="text-lg font-bold text-slate-800 mb-5">Pengaturan Akun Staff</h3>
+            <form class="space-y-5" onsubmit="event.preventDefault(); alert('Profil berhasil diperbarui!');">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <label class="mb-1.5 block text-sm font-semibold text-slate-700">Email Instansi</label>
+                  <input type="email" id="profileEmail" disabled class="w-full rounded-xl border border-slate-200 bg-slate-100 px-4 py-2.5 text-sm text-slate-500 cursor-not-allowed">
+                </div>
+                <div>
+                  <label class="mb-1.5 block text-sm font-semibold text-slate-700">NIP / ID Staff</label>
+                  <input type="text" id="profileId" disabled class="w-full rounded-xl border border-slate-200 bg-slate-100 px-4 py-2.5 text-sm text-slate-500 cursor-not-allowed">
+                </div>
+              </div>
+              <div class="pt-4 border-t border-slate-100">
+                <label class="mb-1.5 block text-sm font-semibold text-slate-700">Password Baru</label>
+                <input type="password" placeholder="Kosongkan jika tidak ingin mengubah password" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm focus:border-teal-500 focus:outline-none focus:ring-4 focus:ring-teal-500/10 transition-colors">
+              </div>
+              <div class="pt-2 flex justify-end">
+                <button type="submit" class="rounded-xl bg-teal-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-teal-500/30 transition-all hover:bg-teal-700 hover:shadow-teal-500/40 active:scale-[0.98]">
+                  Simpan Perubahan
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+      
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+
+  <!-- Inline Script: Pie Chart, Filter User Role & Profile Logic -->
+  <script>
+    let staffChartInstance = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        // --- 1. Load Profile Data ---
+        try {
+          const userStr = localStorage.getItem('spot_user');
+          if(userStr) {
+            const user = JSON.parse(userStr);
+            const usersListStr = localStorage.getItem('spot_users');
+            let nip = '-';
+            if(usersListStr) {
+              const usersList = JSON.parse(usersListStr);
+              const detailUser = usersList.find(u => u.email === user.email);
+              if(detailUser) nip = detailUser.id || '-';
+            }
+            const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.nama)}&background=ccfbf1&color=0f766e`;
+            document.getElementById('headerAvatar').src = avatarUrl;
+            document.getElementById('profileAvatar').src = avatarUrl;
+            document.getElementById('profileEmail').value = user.email;
+            document.getElementById('profileId').value = nip;
+          }
+        } catch (e) { console.error(e); }
+
+        // --- 2. Chart.js & Batch Filter Logic (Dashboard Utama Staff) ---
+        const filterBatch = document.getElementById('filterBatch');
+        const statBelum = document.getElementById('statBelum');
+        const statVerif = document.getElementById('statVerif');
+        const statSudah = document.getElementById('statSudah');
+
+        function updateStaffChart() {
+          const users = JSON.parse(localStorage.getItem('spot_users')) || [];
+          const achievements = JSON.parse(localStorage.getItem('spot_ach')) || [];
+          
+          let mhsList = users.filter(u => u.role === 'mahasiswa');
+          if(mhsList.length < 3) {
+            mhsList = [
+              { nama: 'Rina Putri', id: '2021001', role: 'mahasiswa', email: 'rina@kampus.ac.id' },
+              { nama: 'Budi Santoso', id: '2022002', role: 'mahasiswa', email: 'budi@kampus.ac.id' },
+              { nama: 'Sari Dewi', id: '2023003', role: 'mahasiswa', email: 'sari@kampus.ac.id' }
+            ];
+          }
+
+          const batchVal = filterBatch ? filterBatch.value : 'all';
+          if(batchVal !== 'all') {
+            mhsList = mhsList.filter(m => String(m.id).startsWith(batchVal));
+          }
+
+          let countBelum = 0;
+          let countVerif = 0;
+          let countSudah = 0;
+
+          mhsList.forEach(m => {
+            const mAch = achievements.filter(a => a.owner === m.email || a.nama === m.nama);
+            if(mAch.length === 0) {
+              countBelum++;
+            } else {
+              const hasApproved = mAch.some(a => a.status === 'Disetujui');
+              const hasPending = mAch.some(a => a.status === 'Menunggu');
+              if(hasApproved) countSudah++;
+              else if(hasPending) countVerif++;
+              else countBelum++;
+            }
+          });
+
+          if(statBelum) statBelum.textContent = countBelum;
+          if(statVerif) statVerif.textContent = countVerif;
+          if(statSudah) statSudah.textContent = countSudah;
+
+          const ctx = document.getElementById('staffAchievementChart');
+          if(!ctx) return;
+
+          if(staffChartInstance) {
+            staffChartInstance.data.datasets[0].data = [countBelum, countVerif, countSudah];
+            staffChartInstance.update();
+          } else {
+            staffChartInstance = new Chart(ctx, {
+              type: 'pie',
+              data: {
+                labels: ['Belum Ada Prestasi', 'Sedang Verifikasi', 'Sudah Ada Prestasi'],
+                datasets: [{
+                  data: [countBelum, countVerif, countSudah],
+                  backgroundColor: ['#94a3b8', '#f59e0b', '#10b981'],
+                  borderWidth: 2,
+                  borderColor: '#ffffff'
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    position: 'bottom',
+                    labels: { boxWidth: 12, font: { size: 11 } }
+                  }
+                }
+              }
+            });
+          }
+        }
+
+        if(filterBatch) {
+          filterBatch.addEventListener('change', updateStaffChart);
+        }
+        updateStaffChart();
+
+        // --- 3. Filter Direktori User (Mahasiswa, Dosen, Staff) ---
+        const tbodyUsers = document.getElementById('customUsersRender');
+        const fRole = document.getElementById('filterRole');
+
+        if (tbodyUsers && fRole) {
+          function renderFilteredUsers() {
+            let users = JSON.parse(localStorage.getItem('spot_users')) || [];
+            const roleVal = fRole.value;
+
+            const filtered = users.filter(u => {
+              if (roleVal === 'all') return true;
+              return (u.role || '').toLowerCase() === roleVal.toLowerCase();
+            });
+
+            const roleBadge = r => {
+              if(r === 'mahasiswa') return '<span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">Mahasiswa</span>';
+              if(r === 'dosen') return '<span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-100 text-purple-700">Dosen</span>';
+              return '<span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-teal-100 text-teal-700">Staff Kampus</span>';
+            };
+
+            if (filtered.length === 0) {
+              tbodyUsers.innerHTML = '<tr><td colspan="4" class="px-6 py-8 text-center text-sm text-slate-400">Tidak ada pengguna ditemukan pada filter ini.</td></tr>';
+              return;
+            }
+
+            tbodyUsers.innerHTML = filtered.map(u => `
+              <tr class="transition-colors hover:bg-slate-50/50">
+                <td class="whitespace-nowrap px-6 py-4 font-medium text-slate-900">${u.nama}</td>
+                <td class="whitespace-nowrap px-6 py-4">${u.id || '-'}</td>
+                <td class="whitespace-nowrap px-6 py-4">${roleBadge(u.role)}</td>
+                <td class="whitespace-nowrap px-6 py-4 text-slate-500">${u.email}</td>
+              </tr>
+            `).join('');
+          }
+
+          fRole.addEventListener('change', renderFilteredUsers);
+          renderFilteredUsers();
+        }
+
+      }, 300);
+    });
+  </script>
+</body>
+</html>
